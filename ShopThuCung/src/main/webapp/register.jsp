@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đăng kí tài khoản</title>
+<title><fmt:message key="regis.register"></fmt:message></title>
 <link rel="shortcut icon" type="image/png" href="./img/logo.jpg" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -36,27 +39,14 @@
 				<div class="navbar__menu">
 					<i id="bars" class="fa fa-bars" aria-hidden="true"></i>
 					<ul>
-						<li><a href="index.jsp">Trang chủ</a></li>
-						<li><a href="index.php?page=congiong">Sản phẩm</a></li>
-						<li><a href="index.php?page=yourorder">Đơn hàng</a></li>
+						<li><a href="index.jsp"><fmt:message key="menu.homepage"></fmt:message></a></li>
 					</ul>
 				</div>
 
 			</div>
 
-			<div class="navbar__center">
-				<form action="signup" method="GET" class="navbar__search">
-					<input type="text" value="" placeholder="Nhập để tìm kiếm..."
-						name="txtsearch" class="search" required> <i
-						class="fa fa-search" id="searchBtn"></i>
-				</form>
-			</div>
-
 			<div class="navbar__right">
 
-				<div class="login">
-					<a href="index.php?page=login"><i class="fa fa-user"></i></a>
-				</div>
 
 				<a href="index.php?page=cart" class="navbar__shoppingCart"> <img
 					src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <span>0</span>
@@ -73,62 +63,68 @@
 			style="padding-top: 100px; padding-bottom: 15px; margin-bottom: 0;">
 			<form action="signup" method="POST" class="form" id="form-1"
 				style="width: 430px;">
-				<h3 class="heading">Đăng ký tài khoản</h3>
+				<h3 class="heading">
+					<fmt:message key="regis.register"></fmt:message>
+				</h3>
 				<div class="dont-have-account">
-					Bạn đã có tài khoản? <a class="account-register" href="login.jsp">Đăng
-						nhập</a>
+					<fmt:message key="regis.yesacount"></fmt:message>
+					<a class="account-register" href="login.jsp"><fmt:message
+							key="menu.login">regis.yesacount</fmt:message></a>
 				</div>
 
 				<div class="spacer"></div>
 
 				<div class="form-group">
-					<label class="control-label text-left">Tên đăng nhập</label>
+					<label class="control-label text-left"><fmt:message
+							key="body.usname"></fmt:message></label>
 					<div>
 						<input type="text" name="username" value="${usname}"
-							class="form-control"> <span
-							style="padding-left: 10px; font-size: 20px; color: red;">
-							${error.errorUs} ${exit}</span>
+							class="form-control" required> <span
+							style="padding-left: 10px; font-size: 20px; color: red;">${exit}
+						</span>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="control-label text-left">Mật khẩu</label>
+					<label class="control-label text-left"><fmt:message
+							key="body.pswork"></fmt:message></label>
 					<div>
 						<input type="password" name="pass" value="${pas}"
-							class="form-control"><span
-							style="padding-left: 10px; font-size: 20px; color: red;">${error.errorPas}</span>
+							class="form-control" required>
+
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label text-left">Nhập lại mật khẩu</label>
+					<label class="control-label text-left"><fmt:message
+							key="body.repas"></fmt:message></label>
 					<div>
 						<input type="password" name="repass" value="${rpas}"
-							class="form-control"> <span
+							class="form-control" required> <span
 							style="padding-left: 10px; font-size: 20px; color: red;">${errore}
-							${error.passRE}</span>
+						</span>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label text-left">Email</label>
+					<label class="control-label text-left"><fmt:message
+							key="body.email"></fmt:message></label>
 					<div>
 						<input type="email" name="email" value="${el}"
-							class="form-control"><span
-							style="padding-left: 10px; font-size: 20px; color: red;">
-							${error.errorEm}</span>
+							class="form-control" required>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="control-label text-left">Điện thoại</label>
+					<label class="control-label text-left"><fmt:message
+							key="body.phonemunber"></fmt:message></label>
 					<div>
 						<input type="number" name="phonenumber" value="${nb}"
-							class="form-control"> <span
-							style="padding-left: 10px; font-size: 20px; color: red;">
-							${error.errorNum}</span>
+							class="form-control" required>
 					</div>
 				</div>
 				<button type="submit" value="Create" class="form-submit"
-					name="register_submit">Đăng ký</button>
+					name="register_submit">
+					<fmt:message key="body.regis"></fmt:message>
+				</button>
 
 			</form>
 		</div>
@@ -141,7 +137,7 @@
 	<footer>
 		<div class="footer">
 			<div class="footer__title">
-				<span>Liên hệ</span>
+				<span><fmt:message key="end.contact"></fmt:message></span>
 				<div class="footer__social">
 					<a href="facebook.com/trieuetam" target="_blank"><i
 						class="fab fa-facebook-f"></i></a> <a href="#"><i
@@ -154,21 +150,32 @@
 		<div class="footer__info">
 
 			<div class="footer__info-content">
-				<h3>Giới thiệu</h3>
-				<p>Website quản lý, mua bán thức ăn và phụ kiện thú cưng</p>
+				<h3>
+					<fmt:message key="end.introduce"></fmt:message>
+				</h3>
+				<p>
+					<fmt:message key="end.website"></fmt:message>
+				</p>
 			</div>
 
 
 
 			<div class="footer__info-content">
-				<h3>Liên hệ</h3>
-				<p>Địa chỉ: KTX Khu B, DH Quốc Gia TPHCM</p>
-				<p>Email: shopthucung@gmail.com</p>
-				<p>Sđt: 123456789</p>
+				<p>
+					<fmt:message key="end.address"></fmt:message>
+				</p>
+				<p>
+					<fmt:message key="end.emailshop"></fmt:message>
+				</p>
+				<p>
+					<fmt:message key="end.sdt"></fmt:message>
+				</p>
 			</div>
 
 			<div class="footer__info-content">
-				<h3>Fanpage</h3>
+				<h3>
+					<fmt:message key="end.fanpage"></fmt:message>
+				</h3>
 				<p>
 					<iframe
 						src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FC%25E1%25BB%25ADa-h%25C3%25A0ng-S%25E1%25BA%25A3n-ph%25E1%25BA%25A9m-D%25C3%25A0nh-cho-Th%25C3%25BA-C%25C6%25B0ng-100178969197228%2F%3Fref%3Dpages_you_manage&tabs=timeline&width=300px&height=150px&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
@@ -181,7 +188,9 @@
 		</div>
 
 		<div class="footer__copyright">
-			<center>2022 All rights reserved.</center>
+			<center>
+				<fmt:message key="end.yeardaymonth"></fmt:message>
+			</center>
 		</div>
 	</footer>
 

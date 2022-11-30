@@ -3,17 +3,18 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
+<%@ page session="true"%>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
-<html lang="utf-8">
-
-<fmt:setLocale value="vi_VN" />
-<fmt:setBundle basename="Lang.app" var="lang" />
+<html lang="${sessionScope.lang}">
 <head>
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><fmt:message key="title" bundle="${lang}"></fmt:message></title>
+<title><fmt:message key="menu.title.home"></fmt:message></title>
 <link rel="shortcut icon" type="image/png" href="./img/logo.jpg" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -35,7 +36,8 @@
 </head>
 <body>
 
-	<!-- header --> <!-- -->
+	<!-- header -->
+	<!-- -->
 	<div class="header">
 
 		<div class="navbar">
@@ -47,12 +49,20 @@
 				<div class="navbar__menu">
 					<i id="bars" class="fa fa-bars" aria-hidden="true"></i>
 					<ul>
-						<li><a href="home"><fmt:message key="homepage"
-									bundle="${lang}"></fmt:message></a></li>
-						<li><a href="index.html?page=congiong"><fmt:message
-									key="item" bundle="${lang}"></fmt:message></a></li>
-						<li><a href="index.html?page=yourorder"><fmt:message
-									key="orders" bundle="${lang}"></fmt:message></a></li>
+						<li><a href="home"><fmt:message key="menu.homepage"></fmt:message></a></li>
+						<c:if test="${sessionScope.sessio.isAdmin == 0}">
+							<div class="add-product">
+								<a href="#registerPro" class="btn btn-success"
+									data-toggle="modal"><i class="material-icons"></i> <span><fmt:message
+											key="menu.register"></fmt:message> </span></a>
+							</div>
+						</c:if>
+						<c:if test="${sessionScope.sessio.isAdmin == 1}">
+							<li><a href="manage" target="_blank"
+								rel="noopener noreferrer"><fmt:message
+										key="menu.itemproduct"></fmt:message></a></li>
+						</c:if>
+
 					</ul>
 				</div>
 
@@ -61,7 +71,7 @@
 			<div class="navbar__center">
 				<form action="search" method="GET" class="navbar__search">
 					<input type="text" value="${textvalue}"
-						placeholder="<fmt:message key="search" bundle="${lang}"></fmt:message>"
+						placeholder="<fmt:message key="menu.search" ></fmt:message>"
 						name="txtsearch" class="search" required>
 					<button>
 						<i class="fa fa-search" id="searchBtn"></i>
@@ -70,38 +80,26 @@
 			</div>
 
 			<div class="navbar__right">
-
-				<div class="login">
-					<a href="login.jsp" onclick="showProfile()"><i
-						class="fa fa-user"></i></a>
-
-					<ul class="upl-list" id="upl-list">
-						<li class="upl-list-item">
-							<div id="up-triangle"></div> <i class="fas fa-id-card"></i>
-							<div class="upl-list-item-content">
-								<a href="#" class="upl-list-item-link"><fmt:message
-										key="information" bundle="${lang}"></fmt:message></a>
-							</div>
-						</li>
-						<li class="upl-list-item"><i class="fas fa-upload"></i>
-							<div class="upl-list-item-content">
-								<a href="#" class="upl-list-item-link"><fmt:message
-										key="update" bundle="${lang}"></fmt:message></a>
-							</div></li>
-						<li class="upl-list-item"><i class="fas fa-sign-out-alt"></i>
-							<div class="upl-list-item-content">
-								<a href="#" class="upl-list-item-link"><fmt:message
-										key="logout" bundle="${lang}"></fmt:message></a>
-							</div></li>
-					</ul>
+				<div>
+					<li><a href="?sessionLocale=vi_VN"><fmt:message
+								key="menu.vietnames"></fmt:message></a></li>
+					<li><a href="?sessionLocale=jp_JP"><fmt:message
+								key="menu.japanes"></fmt:message></a></li>
+					<li><a href="?sessionLocale=en_US"><fmt:message
+								key="menu.englist"></fmt:message></a></li>
 				</div>
-				<script defer>
-					function showProfile() {
+				<div class="login">
+					<c:if test="${sessionScope.sessio == null}">
+						<a href="login.jsp"><fmt:message key="menu.login"></fmt:message></a>
+					</c:if>
+					<c:if test="${sessionScope.sessio != null}">
+						<p>
+							<fmt:message key="menu.hello"></fmt:message>
+							${sessionScope.sessio.username} <a href="logout"><fmt:message
+									key="menu.logout"></fmt:message></a>
+					</c:if>
+				</div>
 
-						document.getElementById("upl-list").classList
-								.toggle('upl-list-active')
-					}
-				</script>
 
 				<a href="index.html?page=cart" class="navbar__shoppingCart"> <img
 					src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <span>0</span>
@@ -132,7 +130,7 @@
 	<div class="row" style="width: 70% !important; margin: 20px auto;">
 		<div class="col-lg-2 col-md-4">
 			<h4 style="font-size: 18px;">
-				<fmt:message key="suggestions" bundle="${lang}"></fmt:message>
+				<fmt:message key="body.suggestions"></fmt:message>
 			</h4>
 			<hr>
 
@@ -149,7 +147,7 @@
 			<div class="body__mainTitle">
 				<h3>
 					<div class="maincolor">
-						<fmt:message key="filter" bundle="${lang}"></fmt:message>
+						<fmt:message key="body.filter"></fmt:message>
 					</div>
 				</h3>
 				<c:forEach items="${listCategory}" var="lscategory">
@@ -172,7 +170,7 @@
 				<div class="body__mainTitle"
 					style="margin-bottom: unset !important;">
 					<h2>
-						<fmt:message key="itemnew" bundle="${lang}"></fmt:message>
+						<fmt:message key="body.itemnew"></fmt:message>
 					</h2>
 				</div>
 				<div class="post-slider2">
@@ -194,15 +192,16 @@
 											</div>
 											<div class="product__sale">
 												<h4>
-													<fmt:message key="new" bundle="${lang}"></fmt:message>
+													<fmt:message key="body.new"></fmt:message>
 												</h4>
 											</div>
 											<div class="product__content">
 												<div class="product__title">${lsproductdesc.name}</div>
 
 												<div class="product__pride-oldPride">
-													<span class="Price"> <bdi> ${lsproductdesc.sellprice} <span
-															class="currencySymbol">₫</span> </bdi>
+													<span class="Price"> <bdi>
+														${lsproductdesc.sellprice} <span class="currencySymbol">₫</span>
+														</bdi>
 													</span>
 												</div>
 
@@ -230,7 +229,7 @@
 			<div class="body__mainTitle"
 				style="display: flex; justify-content: space-between;">
 				<h2>
-					<fmt:message key="allitem" bundle="${lang}"></fmt:message>
+					<fmt:message key="body.allitem"></fmt:message>
 				</h2>
 			</div>
 
@@ -248,15 +247,16 @@
 											</div>
 											<div class="product__sale">
 												<h4>
-													<fmt:message key="new" bundle="${lang}"></fmt:message>
+													<fmt:message key="body.hot"></fmt:message>
 												</h4>
 											</div>
 											<div class="product__content">
 												<div class="product__title">${lsproduct.name}</div>
 
 												<div class="product__pride-oldPride">
-													<span class="Price"> <bdi>${lsproduct.sellprice} <span
-															class="currencySymbol">₫</span> </bdi>
+													<span class="Price"> <bdi>${lsproduct.sellprice}
+														<span class="currencySymbol"><fmt:message
+																key="money"></fmt:message></span> </bdi>
 													</span>
 												</div>
 
@@ -266,7 +266,8 @@
 										<div>
 											<div class="product__pride-newPride">
 												<span class="Price"> <bdi> ${lsproduct.price}<span
-														class="currencySymbol">₫</span> </bdi>
+														class="currencySymbol"><fmt:message key="money"></fmt:message></span>
+													</bdi>
 												</span>
 											</div>
 										</div>
@@ -307,7 +308,7 @@
 	<footer>
 		<div class="footer">
 			<div class="footer__title">
-				<span><fmt:message key="contact" bundle="${lang}"></fmt:message></span>
+				<span><fmt:message key="end.contact"></fmt:message></span>
 				<div class="footer__social">
 					<a href="facebook.com/trieuetam" target="_blank"><i
 						class="fab fa-facebook-f"></i></a> <a href="#"><i
@@ -321,33 +322,30 @@
 
 			<div class="footer__info-content">
 				<h3>
-					<fmt:message key="introduce" bundle="${lang}"></fmt:message>
+					<fmt:message key="end.introduce"></fmt:message>
 				</h3>
 				<p>
-					<fmt:message key="website" bundle="${lang}"></fmt:message>
+					<fmt:message key="end.website"></fmt:message>
 				</p>
 			</div>
 
 
 
 			<div class="footer__info-content">
-				<h3>
-					<fmt:message key="introduce" bundle="${lang}"></fmt:message>
-				</h3>
 				<p>
-					<fmt:message key="address" bundle="${lang}"></fmt:message>
+					<fmt:message key="end.address"></fmt:message>
 				</p>
 				<p>
-					<fmt:message key="emailshop" bundle="${lang}"></fmt:message>
+					<fmt:message key="end.emailshop"></fmt:message>
 				</p>
 				<p>
-					<fmt:message key="sdt" bundle="${lang}"></fmt:message>
+					<fmt:message key="end.sdt"></fmt:message>
 				</p>
 			</div>
 
 			<div class="footer__info-content">
 				<h3>
-					<fmt:message key="fanpage" bundle="${lang}"></fmt:message>
+					<fmt:message key="end.fanpage"></fmt:message>
 				</h3>
 				<p>
 					<iframe
@@ -362,7 +360,7 @@
 
 		<div class="footer__copyright">
 			<center>
-				<fmt:message key="yeardaymonth" bundle="${lang}"></fmt:message>
+				<fmt:message key="end.yeardaymonth"></fmt:message>
 			</center>
 		</div>
 	</footer>
@@ -417,5 +415,44 @@
 	</script>
 
 	<script src="./script/script.js"></script>
+	<div id="registerPro" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="registerproduct" method="post">
+					<div class="modal-header">
+						<h4 class="modal-title">
+							<fmt:message key="menu.register"></fmt:message>
+						</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Name</label> <input name="name" type="text"
+								class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>SDT</label> <input name="image" type="text"
+								class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Dia chi</label> <input name="price" type="text"
+								class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>dia chi email</label> <input name="sellprice" type="text"
+								class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal"
+							value="Cancel">
+						<button name="regis" class="btn btn-success" value="1">Đăng
+							kí</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

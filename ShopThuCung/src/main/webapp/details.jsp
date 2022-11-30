@@ -2,15 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
 <html lang="en">
-<fmt:setLocale value="vi_VN" />
-<fmt:setBundle basename="Lang.app" var="lang" />
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><fmt:message key="title" bundle="${lang}"></fmt:message></title>
+<title>${productDetail.name}</title>
 <link rel="shortcut icon" type="image/png" href="./img/logo.jpg" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -40,10 +40,7 @@
 				<div class="navbar__menu">
 					<i id="bars" class="fa fa-bars" aria-hidden="true"></i>
 					<ul>
-						<li><a href="home"><fmt:message key="homepage"
-									bundle="${lang}"></fmt:message></a></li>
-						<li><a href="index.html?page=congiong">Con giống</a></li>
-						<li><a href="index.html?page=yourorder">Đơn hàng</a></li>
+						<li><a href="home"><fmt:message key="menu.homepage"></fmt:message></a></li>
 					</ul>
 				</div>
 
@@ -51,17 +48,32 @@
 
 			<div class="navbar__center">
 				<form action="" method="GET" class="navbar__search">
-					<input type="text" value="" placeholder="Nhập để tìm kiếm..."
+					<input type="text" value=""
+						placeholder="<fmt:message key="menu.search"
+									></fmt:message>"
 						name="txtsearch" class="search" required> <i
 						class="fa fa-search" id="searchBtn"></i>
 				</form>
 			</div>
-
 			<div class="navbar__right">
-
-				<div class="login">
-					<a href="index.html?page=login"><i class="fa fa-user"></i></a>
+				<div>
+					<li><a href="?sessionLocale=vi_VN"><fmt:message
+								key="menu.vietnames"></fmt:message></a></li>
+					<li><a href="?sessionLocale=jp_JP"><fmt:message
+								key="menu.japanes"></fmt:message></a></li>
 				</div>
+				<div class="login">
+					<c:if test="${sessionScope.sessio == null}">
+						<a href="login.jsp"><fmt:message key="menu.login"></fmt:message></a>
+					</c:if>
+					<c:if test="${sessionScope.sessio != null}">
+						<p>
+							<fmt:message key="menu.hello"></fmt:message>
+							${sessionScope.sessio.username} <a href="logout"><fmt:message
+									key="menu.logout"></fmt:message></a>
+					</c:if>
+				</div>
+
 
 				<a href="index.html?page=cart" class="navbar__shoppingCart"> <img
 					src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <span>0</span>
@@ -75,8 +87,7 @@
 
 	<div class="body" style="padding-top: 50px;">
 		<a class="buy_continute" href="home"><i
-			class="fa fa-arrow-circle-left"></i> <fmt:message key="turnback"
-				bundle="${lang}"></fmt:message></a>
+			class="fa fa-arrow-circle-left"></i> <fmt:message key="body.turnback"></fmt:message></a>
 
 		<div class="product__details row">
 
@@ -102,20 +113,22 @@
 			<div class="product__details-info col-lg-7 col-md-8">
 				<h3 style="margin-top: unset; line-height: unset;">
 					${productDetail.name}</h3>
-				<div class="short-des">${productDetail.description}</div>
+				<div class="short-des">${productDetail.title}</div>
 				<hr />
 
 				<div class="product__pride">
 					<div class="product__pride-oldPride"
 						style="font-size: 20px; text-align: start;">
 						<span class="Price"> <bdi> ${productDetail.sellprice}
-							<span class="currencySymbol">₫</span> </bdi>
+							<span class="currencySymbol"><fmt:message key="money"></fmt:message></span>
+							</bdi>
 						</span>
 					</div>
 					<div class="product__pride-newPride"
 						style="font-size: 40px; text-align: start;">
 						<span class="Price"> <bdi> ${productDetail.price} <span
-								class="currencySymbol">₫</span> </bdi>
+								class="currencySymbol"><fmt:message key="money"></fmt:message></span>
+							</bdi>
 						</span>
 					</div>
 
@@ -130,7 +143,7 @@
 </style>
 
 					<div class="number">
-						<span><fmt:message key="quantifier" bundle="${lang}"></fmt:message></span>
+						<span><fmt:message key="body.quantifier"></fmt:message></span>
 						<div class="number__count">
 							<input type="number" value="1" min="1" max="10" name="quantity">
 						</div>
@@ -138,11 +151,13 @@
 
 
 					<div class="product__cart">
-						<a href="giohang.html" class="product__cart-add"
-							name="add-to-cart"> <fmt:message key="addcart"
-								bundle="${lang}"></fmt:message>
-						</a> <a href="giohang.html" class="product__cart-buy" name="buy-now"><fmt:message
-								key="buynow" bundle="${lang}"></fmt:message></a>
+						
+						<a href="cart?action=${productDetail.id}" class="product__cart-buy" name="buy-now"><fmt:message
+								key="body.buynow"></fmt:message></a>
+						
+						<a href="giohang.html" class="product__cart-buy" name="buy-now"><fmt:message
+								key="body.buynow"></fmt:message></a>
+								
 					</div>
 
 				</form>
@@ -152,20 +167,16 @@
 		<!--Mô tả sản phẩm-->
 		<div class="body__mainTitle">
 			<h2>
-				<fmt:message key="description" bundle="${lang}"></fmt:message>
+				<fmt:message key="body.description"></fmt:message>
 			</h2>
 		</div>
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-		accusantium adipisci sit vero vitae laudantium? Dolores corporis illo
-		eius tempore itaque accusamus impedit rem, suscipit, architecto
-		veniam, repellat sint excepturi!
-
+		${productDetail.description}
 		<hr />
 
 		<!--Bình luận sản phẩm-->
 		<div class="body__mainTitle">
 			<h2>
-				<fmt:message key="command" bundle="${lang}"></fmt:message>
+				<fmt:message key="body.command"></fmt:message>
 			</h2>
 		</div>
 		<div>
@@ -186,7 +197,9 @@
 		</div>
 
 		<div class="d-flex justify-content-between align-items-center">
-			<div><fmt:message key="command" bundle="${lang}"></fmt:message></div>
+			<div>
+				<fmt:message key="body.command"></fmt:message>
+			</div>
 			<div class="d-flex align-items-center">
 				<input type="hidden" id="rating" name="rating" value="0" />
 			</div>
@@ -204,7 +217,9 @@
 		<hr>
 		<!-- Sản phẩm ngẫu nhiên -->
 		<div class="body__mainTitle">
-			<h2><fmt:message key="command" bundle="${lang}"></fmt:message></h2>
+			<h2>
+				<fmt:message key="body.command"></fmt:message>
+			</h2>
 		</div>
 		<div class="row">
 			<div class="col-lg-2_5 col-md-4 col-6 post2">
@@ -215,7 +230,9 @@
 						</div>
 
 						<div class="product__sale">
-							<h4><fmt:message key="new" bundle="${lang}"></fmt:message></h4>
+							<h4>
+								<fmt:message key="body.new"></fmt:message>
+							</h4>
 						</div>
 
 
@@ -356,7 +373,8 @@
 
 							<div class="product__pride-oldPride">
 								<span class="Price"> <bdi> 500.000 <span
-										class="currencySymbol">₫</span> </bdi>
+										class="currencySymbol"><fmt:message key="money"></fmt:message></span>
+									</bdi>
 								</span>
 							</div>
 
@@ -366,7 +384,8 @@
 					<div>
 						<div class="product__pride-newPride">
 							<span class="Price"> <bdi> 380.000 <span
-									class="currencySymbol">₫</span> </bdi>
+									class="currencySymbol"><fmt:message key="money"></fmt:message></span>
+								</bdi>
 							</span>
 						</div>
 					</div>
@@ -383,7 +402,7 @@
 	<footer>
 		<div class="footer">
 			<div class="footer__title">
-				<span>Liên hệ</span>
+				<span><fmt:message key="end.contact"></fmt:message></span>
 				<div class="footer__social">
 					<a href="facebook.com/trieuetam" target="_blank"><i
 						class="fab fa-facebook-f"></i></a> <a href="#"><i
@@ -396,21 +415,32 @@
 		<div class="footer__info">
 
 			<div class="footer__info-content">
-				<h3>Giới thiệu</h3>
-				<p>Website quản lý, mua bán thú cưng</p>
+				<h3>
+					<fmt:message key="end.introduce"></fmt:message>
+				</h3>
+				<p>
+					<fmt:message key="end.website"></fmt:message>
+				</p>
 			</div>
 
 
 
 			<div class="footer__info-content">
-				<h3>Liên hệ</h3>
-				<p>Địa chỉ: 475 Điện Biên Phủ, Hutech khu A,B</p>
-				<p>Email: trieuetam@gmail.com</p>
-				<p>Sđt: 123456789</p>
+				<p>
+					<fmt:message key="end.address"></fmt:message>
+				</p>
+				<p>
+					<fmt:message key="end.emailshop"></fmt:message>
+				</p>
+				<p>
+					<fmt:message key="end.sdt"></fmt:message>
+				</p>
 			</div>
 
 			<div class="footer__info-content">
-				<h3>Fanpage</h3>
+				<h3>
+					<fmt:message key="end.fanpage"></fmt:message>
+				</h3>
 				<p>
 					<iframe
 						src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FC%25E1%25BB%25ADa-h%25C3%25A0ng-S%25E1%25BA%25A3n-ph%25E1%25BA%25A9m-D%25C3%25A0nh-cho-Th%25C3%25BA-C%25C6%25B0ng-100178969197228%2F%3Fref%3Dpages_you_manage&tabs=timeline&width=300px&height=150px&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
@@ -423,9 +453,12 @@
 		</div>
 
 		<div class="footer__copyright">
-			<center>2022 All rights reserved.</center>
+			<center>
+				<fmt:message key="end.yeardaymonth"></fmt:message>
+			</center>
 		</div>
 	</footer>
+
 
 
 	<script
