@@ -5,12 +5,12 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
-<html lang="vi_VN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><fmt:message key="menu.cart"></fmt:message></title>
+<title><fmt:message key="body.ttitle"></fmt:message></title>
 <link rel="shortcut icon" type="image/png" href="./img/logo.jpg" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -33,8 +33,8 @@
 
 		<div class="navbar">
 			<div class="navbar__left">
-				<a href="home" class="navbar__logo"> <img src="./img/logo.jpg"
-					alt="">
+				<a href="home" class="navbar__logo"> <img
+					src="./img/logo.jpg" alt="">
 				</a>
 				<div class="navbar__menu">
 					<i id="bars" class="fa fa-bars" aria-hidden="true"></i>
@@ -99,7 +99,7 @@
 				</div>
 
 				<div>
-<!-- hiển thị tổng số lượng sản phẩm trong giỏ -->>
+
 					<a href="cart.jsp" class="navbar__shoppingCart"> <img
 						src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <c:set
 							var="count" value="${0}" /> <c:forEach items="${cart.items}"
@@ -113,116 +113,45 @@
 
 	</div>
 
+
 	<!--Main-->
-	<div class="body fix-width scroll-inner"
-		style="padding-top: 60px; margin-bottom: 30px;">
-		<a class="buy_continute" href="home"><i
-			class="fa fa-arrow-circle-left"></i> <fmt:message key="body.turnback"></fmt:message></a>
-		<h4 class="text-danger"></h4>
-		<table class="table table-striped">
-			<tbody>
-				<tr>
-					<th></th>
-					<th><fmt:message key="body.idpro"></fmt:message></th>
-					<th><fmt:message key="body.namepro"></fmt:message></th>
-					<th><fmt:message key="body.imgpro"></fmt:message></th>
-					<th><fmt:message key="body.quantity"></fmt:message></th>
-					<th><fmt:message key="body.sellpro"></fmt:message></th>
-					<th><fmt:message key="body.sum"></fmt:message></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<!-- Giỏ hàng -->
-				<c:forEach var="item" items="${cart.items}">
-					<tr>
-						<td><input type="checkbox" name="" id=""></td>
-						<td>${item.product.id}</td>
-						<td>${item.product.name}</td>
-						<td><img src="${item.product.image}" width="100"></td>
-						<td>
-							<form action="cart" method="post" class="quantity"
-								style="display: flex;">
-								<input type="submit" value='-' class='qtyminus minus'
-									field='quantity' style="padding: 0 5px;" /> <input type='text'
-									name='quantity' value="<c:out value='${item.quantity}'/>"
-									id="quantity" min="1" max="100" class='qty'
-									style="width: 40px; text-align: center; margin: 0 5px;" /> <input
-									type="submit" value='+' class='qtyplus plus' field='quantity'
-									style="padding: 0 5px;" /> <input type="hidden"
-									name="productCode" value="<c:out value='${item.product.id}'/>">
-								<input type="submit" class="btn btn-primary"
-									value="<fmt:message key="body.updatequantity"></fmt:message> ">
-							</form>
-						</td>
-						<td>${item.product.priceCurrencyFormat}</td>
-						<td>${item.totalCurrencyFormat}</td>
-						<td>
-							<form action="cart" method="post">
-								<input type="hidden" name="productCode"
-									value="<c:out value='${item.product.id}'/>"> <input
-									type="hidden" name="quantity" value="0"> <input
-									type="submit"
-									value="<fmt:message key="body.delete"></fmt:message>"
-									class="btn btn-primary">
-							</form>
-						</td>
-					</tr>
-				</c:forEach>
+	<input type="hidden" name="keyid" value="${keyu}">
+	<c:forEach items="${billoder}" var="bills">
+		<c:if test="${bills.idcustom == keyu}">
+			<div class="body fix-width scroll-inner">
+				<div class="text-danger"></div>
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<th>ID</th>
+							<th><fmt:message key="body.oder.status"></fmt:message></th>
+							<th><fmt:message key="body.oder.date"></fmt:message></th>
+							<th><fmt:message key="body.oder.num"></fmt:message></th>
+							<th><fmt:message key="body.oder.tt"></fmt:message></th>
+						</tr>
 
-				<tr
-					style="font-weight: bold; color: unset; background-color: unset;">
-					<td style="text-align: left;" colspan="5"><input
-						type="checkbox" name="" id="selectall"> <label
-						for="selectall"><fmt:message key="body.selecallcart"></fmt:message></label></td>
+						<tr>
+							<td>${bills.id_product}</td>
+							<td>
+								<div style="color: orange;"><fmt:message key="body.oder.processing"></fmt:message></div>
+							</td>
+							<td>${bills.datetime}</td>
 
-				</tr>
-<!-- Tổng giá của tất cả sản phẩm -->>
-				<tr style="font-weight: bold; text-align: right; color: crimson;">
-					<c:set var="sumprice" value="${0}" />
-					<c:forEach items="${cart.items}" var="item">
-						<c:set var="sumprice"
-							value="${sumprice +item.quantity * item.product.price}" />
-					</c:forEach>
-					<td colspan="10"><fmt:message key="body.sumpri"></fmt:message>
-						${sumprice}</td>
-				</tr>
+							<td>${bills.quantity}</td>
+							<td><a href="detailServlet?fromitem=${bills.id_product}"
+								target="_blank" rel="noopener noreferrer"><fmt:message
+										key="body.oder.tt"></fmt:message></a></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<c:if test="${sessionScope.sessio != null}">
-					<tr
-						style="font-weight: bold; text-align: right; color: unset; background-color: unset;">
-						<td colspan="8">
-
-
-							<form action="cart" method="post">
-								<c:forEach items="${cart.items}" var="item">
-									<c:if test="${item =! null}">
-										<input type="hidden" name="action" value="checkout">
-										<input class="btn btn-primary" type="submit"
-											value="<fmt:message key="body.checkoder"></fmt:message>">
-									</c:if>
-								</c:forEach>
-								<c:forEach items="${cart.items}" var="item">
-									<c:if test="${item == null}">	
-									</c:if>
-								</c:forEach>
-							</form>
-						</td>
-					</tr>
-				</c:if>
-			</tbody>
-
-		</table>
-		<div>
-			<c:if test="${sessionScope.sessio == null}">
-				<td><fmt:message key="body.checkoutc"></fmt:message><a
-					href="login.jsp"><fmt:message key="menu.login"></fmt:message></a></td>
-			</c:if>
-		</div>
-	</div>
-
+			</div>
+		</c:if>
+	</c:forEach>
 	<div class="go-to-top">
 		<i class="fas fa-chevron-up"></i>
 	</div>
+
 	<footer>
 		<div class="footer">
 			<div class="footer__title">
@@ -365,44 +294,5 @@
 	</script>
 
 	<script src="./script/script.js"></script>
-	<div id="registerPro" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form action="registerproduct" method="post">
-					<div class="modal-header">
-						<h4 class="modal-title">
-							<fmt:message key="menu.register"></fmt:message>
-						</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label><fmt:message key="body.nameshop"></fmt:message></label> <input
-								name="name" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label><fmt:message key="body.sdtshop"></fmt:message></label> <input
-								name="image" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label><fmt:message key="body.addrestshop"></fmt:message></label>
-							<input name="price" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label><fmt:message key="body.emailshop"></fmt:message></label> <input
-								name="sellprice" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="button" data-dismiss="modal" value="Cancel">
-						<button name="regis" value="1">
-							<fmt:message key="body.regisshop"></fmt:message>
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

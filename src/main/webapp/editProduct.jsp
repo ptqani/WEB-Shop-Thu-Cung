@@ -5,7 +5,7 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi_VN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,7 +60,8 @@
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-left">
-								<li class="breadcrumb-item active"><fmt:message key="menu.admin.titleedit"></fmt:message></li>
+								<li class="breadcrumb-item active"><fmt:message
+										key="menu.admin.titleedit"></fmt:message></li>
 							</ol>
 						</div>
 						<!-- /.col -->
@@ -107,7 +108,7 @@
 								class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label><fmt:message key="body.sellpripro"></fmt:message></label>
+							<label><fmt:message key="body.sellpriproprice"></fmt:message></label>
 							<input name="sellprice" type="text"
 								value="${productDetail.sellprice}" class="form-control" required>
 						</div>
@@ -131,35 +132,21 @@
 
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal"
-							value="Cancel"> <input type="submit"
-							class="btn btn-success" value="Add">
+						<a href="manage" class="btn btn-default" data-dismiss="modal"><fmt:message
+								key="body.canel"></fmt:message></a> <input type="submit"
+							class="btn btn-success"
+							value="<fmt:message key="menu.admin.editpro"></fmt:message>">
 					</div>
 				</form>
 			</div>
 		</div>
-		<!-- Main Sidebar Container -->
 
-		<!-- Content Wrapper. Contains page content -->
-
-		<!-- /.content-wrapper -->
-		<footer class="main-footer">
-			<strong>Copyright &copy; 2022 <a href="https://adminlte.io">AdminLTE.io</a>.
-			</strong> All rights reserved.
-			<div class="float-right d-none d-sm-inline-block">
-				<b>Version</b> 3.2.0
-			</div>
-		</footer>
-
-		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark">
 			<!-- Control sidebar content goes here -->
 		</aside>
 		<!-- /.control-sidebar -->
 	</div>
-	<!-- ./wrapper -->
 
-	<!-- jQuery -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<!-- jQuery UI 1.11.4 -->

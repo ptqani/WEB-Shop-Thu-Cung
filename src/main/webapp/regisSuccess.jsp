@@ -1,11 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
 <html lang="vi_VN">
 <head>
+<meta charset="ISO-8859-1">
+<title><fmt:message key="erro.success"></fmt:message></title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,90 +26,20 @@
 <link rel="stylesheet" href="./css/style.min.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
-
 </head>
 <body>
-	<!-- header -->
-	<div class="header">
-
-		<div class="navbar">
-			<div class="navbar__left">
-				<a href="home" class="navbar__logo"> <img
-					src="./img/logo.jpg" alt="">
-				</a>
-				<div class="navbar__menu">
-					<i id="bars" class="fa fa-bars" aria-hidden="true"></i>
-					<ul>
-						<li><a href="home"><fmt:message key="menu.homepage"></fmt:message></a></li>
-					</ul>
-				</div>
-
-			</div>
-			<div style="margin-right: 5px;">
-					<select name="countries" class="countries"
-						onchange="location = this.value;">
-						<option value=""><fmt:message key="menu.language"></fmt:message></option>
-
-						<option value="?sessionLocale=vi_VN"><fmt:message
-								key="menu.vietnames"></fmt:message>
-						</option>
-
-						<option value="?sessionLocale=en_US"><fmt:message
-								key="menu.englist"></fmt:message>
-						</option>
-					</select>
-				</div>
-		</div>
-
-	</div>
-
-	<!--Main-->
-	<div class="login-form">
+<div class="login-form">
 		<div class="height360">
 			<div class="main">
-				<form action="login" method="POST" class="form" id="form-2"
+				<form action="next" method="POST" class="form" id="form-2"
 					style="width: 400px;">
 					<h3 class="heading">
-						<fmt:message key="body.loginform"></fmt:message>
+						<fmt:message key="erro.regisSucess"></fmt:message>
 					</h3>
-
-
-					<div class="form-group">
-						<label for="Fullname" class="form-label"><fmt:message
-								key="body.usname"></fmt:message></label>
-						<p style="display: flex;">
-							<input type="text" value="${username}" name="usernamet"
-								class="form-control" required>
-						</p>
-
-						<span class="form-message"></span>
-					</div>
-
-					<div class="form-group">
-						<label for="password" class="form-label"><fmt:message
-								key="body.pswork"></fmt:message></label>
-						<p style="display: flex;">
-							<input type="password" name="passt" class="form-control" required>
-
-
-							<span class="form-message"></span>
-					</div>
-					<p class="text-danger">${mess.error}</p>
-					<button type="submit" class="form-submit" value="Login"
-						name="login_submit">
-						<fmt:message key="body.loginform"></fmt:message>
+					<button type="submit" class="form-submit" 
+						>
+						<fmt:message key="body.conti"></fmt:message>
 					</button>
-
-					<div class="dont-have-account">
-						<fmt:message key="body.noacount"></fmt:message>
-						<a class="account-register" href="register.jsp"><fmt:message
-								key="body.regis"></fmt:message></a>
-					</div>
-					<div class="dont-have-account">
-						<fmt:message key="body.forgotpas"></fmt:message>
-						<a class="account-register" href="#"><fmt:message
-								key="body.reforgotpas"></fmt:message></a>
-					</div>
 				</form>
 			</div>
 		</div>

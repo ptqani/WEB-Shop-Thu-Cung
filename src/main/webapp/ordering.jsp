@@ -5,12 +5,12 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
-<html lang="vi_VN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><fmt:message key="menu.cart"></fmt:message></title>
+<title>Quản lý cửa hàng thú cưng</title>
 <link rel="shortcut icon" type="image/png" href="./img/logo.jpg" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -33,17 +33,18 @@
 
 		<div class="navbar">
 			<div class="navbar__left">
-				<a href="home" class="navbar__logo"> <img src="./img/logo.jpg"
-					alt="">
+				<a href="home" class="navbar__logo"> <img
+					src="./img/logo.jpg" alt="">
 				</a>
 				<div class="navbar__menu">
 					<i id="bars" class="fa fa-bars" aria-hidden="true"></i>
 					<ul>
 						<li><a href="home"><fmt:message key="menu.homepage"></fmt:message></a></li>
-						<c:if test="${sessionScope.sessio != null}">
-							<li><a href="oder"><fmt:message key="body.oder"></fmt:message></a>
-							</li>
-						</c:if>
+					<c:if test="${sessionScope.sessio != null}">
+							<li>
+                            <a href="oder"><fmt:message key="body.oder"></fmt:message></a>
+                        </li>
+					</c:if>
 						<c:if test="${sessionScope.sessio.isAdmin == 0}">
 							<li><a href="#registerPro" target="_blank"
 								data-toggle="modal" rel="noopener noreferrer"
@@ -82,6 +83,7 @@
 						<option value="?sessionLocale=vi_VN"><fmt:message
 								key="menu.vietnames"></fmt:message>
 						</option>
+
 						<option value="?sessionLocale=en_US"><fmt:message
 								key="menu.englist"></fmt:message>
 						</option>
@@ -99,7 +101,7 @@
 				</div>
 
 				<div>
-<!-- hiển thị tổng số lượng sản phẩm trong giỏ -->>
+
 					<a href="cart.jsp" class="navbar__shoppingCart"> <img
 						src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <c:set
 							var="count" value="${0}" /> <c:forEach items="${cart.items}"
@@ -114,115 +116,27 @@
 	</div>
 
 	<!--Main-->
-	<div class="body fix-width scroll-inner"
-		style="padding-top: 60px; margin-bottom: 30px;">
-		<a class="buy_continute" href="home"><i
-			class="fa fa-arrow-circle-left"></i> <fmt:message key="body.turnback"></fmt:message></a>
-		<h4 class="text-danger"></h4>
-		<table class="table table-striped">
-			<tbody>
-				<tr>
-					<th></th>
-					<th><fmt:message key="body.idpro"></fmt:message></th>
-					<th><fmt:message key="body.namepro"></fmt:message></th>
-					<th><fmt:message key="body.imgpro"></fmt:message></th>
-					<th><fmt:message key="body.quantity"></fmt:message></th>
-					<th><fmt:message key="body.sellpro"></fmt:message></th>
-					<th><fmt:message key="body.sum"></fmt:message></th>
-					<th></th>
-					<th></th>
-				</tr>
-				<!-- Giỏ hàng -->
-				<c:forEach var="item" items="${cart.items}">
-					<tr>
-						<td><input type="checkbox" name="" id=""></td>
-						<td>${item.product.id}</td>
-						<td>${item.product.name}</td>
-						<td><img src="${item.product.image}" width="100"></td>
-						<td>
-							<form action="cart" method="post" class="quantity"
-								style="display: flex;">
-								<input type="submit" value='-' class='qtyminus minus'
-									field='quantity' style="padding: 0 5px;" /> <input type='text'
-									name='quantity' value="<c:out value='${item.quantity}'/>"
-									id="quantity" min="1" max="100" class='qty'
-									style="width: 40px; text-align: center; margin: 0 5px;" /> <input
-									type="submit" value='+' class='qtyplus plus' field='quantity'
-									style="padding: 0 5px;" /> <input type="hidden"
-									name="productCode" value="<c:out value='${item.product.id}'/>">
-								<input type="submit" class="btn btn-primary"
-									value="<fmt:message key="body.updatequantity"></fmt:message> ">
-							</form>
-						</td>
-						<td>${item.product.priceCurrencyFormat}</td>
-						<td>${item.totalCurrencyFormat}</td>
-						<td>
-							<form action="cart" method="post">
-								<input type="hidden" name="productCode"
-									value="<c:out value='${item.product.id}'/>"> <input
-									type="hidden" name="quantity" value="0"> <input
-									type="submit"
-									value="<fmt:message key="body.delete"></fmt:message>"
-									class="btn btn-primary">
-							</form>
-						</td>
-					</tr>
-				</c:forEach>
+	<div class="body">
+		<center style="height: 300px; padding-top: 10px;">
+			<h1 class="text-success">
+				<fmt:message key="body.text0"></fmt:message>
+			</h1>
+			<h2>
+				<fmt:message key="body.text1"></fmt:message>
+			</h2>
+			<h3>
+				<fmt:message key="body.text2"></fmt:message>
+			</h3>
+		</center>
 
-				<tr
-					style="font-weight: bold; color: unset; background-color: unset;">
-					<td style="text-align: left;" colspan="5"><input
-						type="checkbox" name="" id="selectall"> <label
-						for="selectall"><fmt:message key="body.selecallcart"></fmt:message></label></td>
-
-				</tr>
-<!-- Tổng giá của tất cả sản phẩm -->>
-				<tr style="font-weight: bold; text-align: right; color: crimson;">
-					<c:set var="sumprice" value="${0}" />
-					<c:forEach items="${cart.items}" var="item">
-						<c:set var="sumprice"
-							value="${sumprice +item.quantity * item.product.price}" />
-					</c:forEach>
-					<td colspan="10"><fmt:message key="body.sumpri"></fmt:message>
-						${sumprice}</td>
-				</tr>
-
-				<c:if test="${sessionScope.sessio != null}">
-					<tr
-						style="font-weight: bold; text-align: right; color: unset; background-color: unset;">
-						<td colspan="8">
-
-
-							<form action="cart" method="post">
-								<c:forEach items="${cart.items}" var="item">
-									<c:if test="${item =! null}">
-										<input type="hidden" name="action" value="checkout">
-										<input class="btn btn-primary" type="submit"
-											value="<fmt:message key="body.checkoder"></fmt:message>">
-									</c:if>
-								</c:forEach>
-								<c:forEach items="${cart.items}" var="item">
-									<c:if test="${item == null}">	
-									</c:if>
-								</c:forEach>
-							</form>
-						</td>
-					</tr>
-				</c:if>
-			</tbody>
-
-		</table>
-		<div>
-			<c:if test="${sessionScope.sessio == null}">
-				<td><fmt:message key="body.checkoutc"></fmt:message><a
-					href="login.jsp"><fmt:message key="menu.login"></fmt:message></a></td>
-			</c:if>
-		</div>
+		<a href="home"> <fmt:message key="body.text3"></fmt:message>
+		</a>
 	</div>
 
 	<div class="go-to-top">
 		<i class="fas fa-chevron-up"></i>
 	</div>
+
 	<footer>
 		<div class="footer">
 			<div class="footer__title">
@@ -283,9 +197,9 @@
 		</div>
 	</footer>
 
-
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+	<script type="text/javascript" src="printThis.js"></script>
 	<script>
 		//Slider using Slick
 		$(document).ready(function() {
@@ -365,44 +279,5 @@
 	</script>
 
 	<script src="./script/script.js"></script>
-	<div id="registerPro" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form action="registerproduct" method="post">
-					<div class="modal-header">
-						<h4 class="modal-title">
-							<fmt:message key="menu.register"></fmt:message>
-						</h4>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label><fmt:message key="body.nameshop"></fmt:message></label> <input
-								name="name" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label><fmt:message key="body.sdtshop"></fmt:message></label> <input
-								name="image" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label><fmt:message key="body.addrestshop"></fmt:message></label>
-							<input name="price" type="text" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label><fmt:message key="body.emailshop"></fmt:message></label> <input
-								name="sellprice" type="text" class="form-control" required>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<input type="button" data-dismiss="modal" value="Cancel">
-						<button name="regis" value="1">
-							<fmt:message key="body.regisshop"></fmt:message>
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

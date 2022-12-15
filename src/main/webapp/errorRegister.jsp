@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
-<html>
+<html lang="vi_VN">
 <head>
 <meta charset="utf-8">
 <title><fmt:message key="regis"></fmt:message></title>

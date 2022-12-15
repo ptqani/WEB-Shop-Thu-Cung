@@ -1,4 +1,3 @@
-<%@page import="WebAppData.DAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,7 +7,7 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
-<html lang="${sessionScope.lang}">
+<html lang="vi_VN">
 <head>
 
 <meta charset="UTF-8">
@@ -34,6 +33,32 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
 
 </head>
+
+<style>
+.countries {
+	border: none;
+	outline: none;
+	padding: 3px;
+	border: 1px solid #ccc;
+}
+
+.countries>option {
+	border: none;
+	outline: none;
+	padding: 3px;
+	border: 1px solid #ccc;
+}
+
+.btn {
+	line-height: 50px;
+	position: absolute;
+	right: 25px;
+	border: none;
+	outline: none;
+	background: unset;
+}
+</style>
+
 <body>
 
 	<!-- header -->
@@ -42,20 +67,22 @@
 
 		<div class="navbar">
 			<div class="navbar__left">
-				<a href="index.html" class="navbar__logo"> <img
+				<a href="home" class="navbar__logo"> <img
 					src="./img/logo.jpg" alt="">
 				</a>
-
+				<!-- hiển thị thông tin đăng nhập lưu ở secssion -->
 				<div class="navbar__menu">
 					<i id="bars" class="fa fa-bars" aria-hidden="true"></i>
 					<ul>
 						<li><a href="home"><fmt:message key="menu.homepage"></fmt:message></a></li>
+						<c:if test="${sessionScope.sessio != null}">
+							<li><a href="oder"><fmt:message key="body.oder"></fmt:message></a>
+							</li>
+						</c:if>
 						<c:if test="${sessionScope.sessio.isAdmin == 0}">
-							<div class="add-product">
-								<a href="#registerPro" class="btn btn-success"
-									data-toggle="modal"><i class="material-icons"></i> <span><fmt:message
-											key="menu.register"></fmt:message> </span></a>
-							</div>
+							<li><a href="#registerPro" target="_blank"
+								data-toggle="modal" rel="noopener noreferrer"
+								rel="noopener noreferrer"><fmt:message key="menu.register"></fmt:message></a></li>
 						</c:if>
 						<c:if test="${sessionScope.sessio.isAdmin == 1}">
 							<li><a href="manage" target="_blank"
@@ -65,45 +92,59 @@
 
 					</ul>
 				</div>
-
 			</div>
-
+			<!-- Tìm kiếm theo từ khóa -->
 			<div class="navbar__center">
 				<form action="search" method="GET" class="navbar__search">
 					<input type="text" value="${textvalue}"
 						placeholder="<fmt:message key="menu.search" ></fmt:message>"
 						name="txtsearch" class="search" required>
-					<button>
+					<button class="btnSearch">
 						<i class="fa fa-search" id="searchBtn"></i>
 					</button>
 				</form>
 			</div>
 
 			<div class="navbar__right">
-				<div>
-					<li><a href="?sessionLocale=vi_VN"><fmt:message
-								key="menu.vietnames"></fmt:message></a></li>
-					<li><a href="?sessionLocale=jp_JP"><fmt:message
-								key="menu.japanes"></fmt:message></a></li>
-					<li><a href="?sessionLocale=en_US"><fmt:message
-								key="menu.englist"></fmt:message></a></li>
+				<div style="margin-right: 5px;">
+
+
+					<!-- Đa ngôn ngữ -->
+					<select name="countries" class="countries"
+						onchange="location = this.value;">
+						<option value=""><fmt:message key="menu.language"></fmt:message></option>
+
+						<option value="?sessionLocale=vi_VN"><fmt:message
+								key="menu.vietnames"></fmt:message>
+						</option>
+
+						<option value="?sessionLocale=en_US"><fmt:message
+								key="menu.englist"></fmt:message>
+						</option>
+					</select>
 				</div>
+				<!-- Seecsion người dùng -->
 				<div class="login">
 					<c:if test="${sessionScope.sessio == null}">
 						<a href="login.jsp"><fmt:message key="menu.login"></fmt:message></a>
 					</c:if>
 					<c:if test="${sessionScope.sessio != null}">
 						<p>
-							<fmt:message key="menu.hello"></fmt:message>
 							${sessionScope.sessio.username} <a href="logout"><fmt:message
 									key="menu.logout"></fmt:message></a>
 					</c:if>
 				</div>
 
+				<div>
 
-				<a href="index.html?page=cart" class="navbar__shoppingCart"> <img
-					src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <span>0</span>
-				</a>
+					<a href="cart.jsp" class="navbar__shoppingCart"> <img
+						src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <c:set
+							var="count" value="${0}" /> <c:forEach items="${cart.items}"
+							var="item">
+							<c:set var="count" value="${count + item.quantity}" />
+						</c:forEach> <span>${count }</span>
+					</a>
+				</div>
 			</div>
 		</div>
 
@@ -150,9 +191,10 @@
 						<fmt:message key="body.filter"></fmt:message>
 					</div>
 				</h3>
+				<!-- Hiển thị ra tất cả danh mục -->
 				<c:forEach items="${listCategory}" var="lscategory">
 					<h4>
-						<li class="list-group-item text-while ${cate ==lscategory.cid ? "active" : "" }" ><a
+						<li class="list-group-item text-while ${cate == lscategory.cid ? "active" : "" }" ><a
 							href="category?fromid=${lscategory.cid}" class="text-secondary">${lscategory.cname}</a>
 						</li>
 					</h4>
@@ -176,7 +218,7 @@
 				<div class="post-slider2">
 					<i class="fa fa-chevron-left prev2" aria-hidden="true"></i> <i
 						class="fa fa-chevron-right next2" aria-hidden="true"></i>
-
+					<!-- Hiển thị ra sản phẩm sắp xếp từ dưới lên -->
 					<div class="row">
 						<div class="post-wrapper2">
 							<c:forEach begin="1" end="6" items="${listProductdesc}"
@@ -200,8 +242,8 @@
 
 												<div class="product__pride-oldPride">
 													<span class="Price"> <bdi>
-														${lsproductdesc.sellprice} <span class="currencySymbol">₫</span>
-														</bdi>
+														${lsproductdesc.price} <span class="currencySymbol"><fmt:message
+																key="money=đ"></fmt:message></span> </bdi>
 													</span>
 												</div>
 
@@ -211,7 +253,7 @@
 										<div>
 											<div class="product__pride-newPride">
 												<span class="Price"> <bdi>
-													${lsproductdesc.price} <span class="currencySymbol">₫</span>
+													${lsproductdesc.sellprice} <span class="currencySymbol">₫</span>
 													</bdi>
 												</span>
 											</div>
@@ -224,7 +266,7 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- Hiển thị tất cả sản phẩm -->
 		<div class="body" style="width: unset !important;">
 			<div class="body__mainTitle"
 				style="display: flex; justify-content: space-between;">
@@ -237,6 +279,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="row">
+							<!-- listProduct = danh sách sản phẩm -->
 							<c:forEach items="${listProduct}" var="lsproduct">
 								<div class="col-lg-3 col-md-4 col-6 mb-3">
 									<a href="detailServlet?fromitem=${lsproduct.id}"
@@ -254,9 +297,9 @@
 												<div class="product__title">${lsproduct.name}</div>
 
 												<div class="product__pride-oldPride">
-													<span class="Price"> <bdi>${lsproduct.sellprice}
-														<span class="currencySymbol"><fmt:message
-																key="money"></fmt:message></span> </bdi>
+													<span class="Price"> <bdi>${lsproduct.price} <span
+															class="currencySymbol"><fmt:message key="money"></fmt:message></span>
+														</bdi>
 													</span>
 												</div>
 
@@ -265,26 +308,32 @@
 
 										<div>
 											<div class="product__pride-newPride">
-												<span class="Price"> <bdi> ${lsproduct.price}<span
-														class="currencySymbol"><fmt:message key="money"></fmt:message></span>
+												<span class="Price"> <bdi>
+													${lsproduct.sellprice}<span class="currencySymbol"><fmt:message
+															key="money"></fmt:message></span>
+													<td><form action="cart" method="post">
+															<input type="hidden" name="productCode"
+																value="<c:out value='${lsproduct.id}'/>"> <input
+																type="submit" value="Add To Cart">
+														</form></td>
 													</bdi>
 												</span>
 											</div>
 										</div>
 									</a>
 								</div>
+
 							</c:forEach>
 						</div>
-
+						<!-- Phân trang -->
 						<div class="d-flex justify-content-center mt-3">
 							<div class="MenuTrang">
-								<ul class="pagination">
-									<li class="active"><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-								</ul>
+								<c:forEach begin="1" end="${endCount}" var="countnum">
+									<ul class="pagination">
+										<li class="${pageid == countnum?"active" : "" }" ><a
+											href="home?page=${countnum}">${countnum}</a></li>
+									</ul>
+								</c:forEach>
 							</div>
 						</div>
 
@@ -297,8 +346,7 @@
 	</div>
 
 
-	</div>
-	</div>
+
 
 
 	<div class="go-to-top">
@@ -428,27 +476,27 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label>Name</label> <input name="name" type="text"
-								class="form-control" required>
+							<label><fmt:message key="body.nameshop"></fmt:message></label> <input
+								name="name" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>SDT</label> <input name="image" type="text"
-								class="form-control" required>
+							<label><fmt:message key="body.sdtshop"></fmt:message></label> <input
+								name="sdt" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Dia chi</label> <input name="price" type="text"
-								class="form-control" required>
+							<label><fmt:message key="body.addrestshop"></fmt:message></label>
+							<input name="address" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>dia chi email</label> <input name="sellprice" type="text"
-								class="form-control" required>
+							<label><fmt:message key="body.emailshop"></fmt:message></label> <input
+								name="email" type="text" class="form-control" required>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal"
-							value="Cancel">
-						<button name="regis" class="btn btn-success" value="1">Đăng
-							kí</button>
+						<input type="button" data-dismiss="modal" value="Cancel">
+						<button name="regis" value="1">
+							<fmt:message key="body.regisshop"></fmt:message>
+						</button>
 					</div>
 				</form>
 			</div>

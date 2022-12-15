@@ -4,7 +4,7 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="i18n.messages" />
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi_VN">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,26 +32,32 @@
 
 		<div class="navbar">
 			<div class="navbar__left">
-				<a href="index.php" class="navbar__logo"> <img
+				<a href="home" class="navbar__logo"> <img
 					src="./img/logo.jpg" alt="">
 				</a>
 
 				<div class="navbar__menu">
 					<i id="bars" class="fa fa-bars" aria-hidden="true"></i>
 					<ul>
-						<li><a href="index.jsp"><fmt:message key="menu.homepage"></fmt:message></a></li>
+						<li><a href="home"><fmt:message key="menu.homepage"></fmt:message></a></li>
 					</ul>
 				</div>
 
 			</div>
+			<div style="margin-right: 5px;">
+					<select name="countries" class="countries"
+						onchange="location = this.value;">
+						<option value=""><fmt:message key="menu.language"></fmt:message></option>
 
-			<div class="navbar__right">
+						<option value="?sessionLocale=vi_VN"><fmt:message
+								key="menu.vietnames"></fmt:message>
+						</option>
 
-
-				<a href="index.php?page=cart" class="navbar__shoppingCart"> <img
-					src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <span>0</span>
-				</a>
-			</div>
+						<option value="?sessionLocale=en_US"><fmt:message
+								key="menu.englist"></fmt:message>
+						</option>
+					</select>
+				</div>
 		</div>
 
 	</div>

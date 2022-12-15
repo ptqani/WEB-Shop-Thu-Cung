@@ -37,11 +37,6 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 
-		<!-- Preloader -->
-		<!-- <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/logo.jpg" alt="logo" height="60" width="60">
-  </div> -->
-
 		<!-- Navbar -->
 		<nav
 			class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -50,16 +45,7 @@
 				<li class="nav-item d-none d-sm-inline-block"><a href="manage"
 					class="nav-link"><fmt:message key="menu.homepage"></fmt:message></a></li>
 			</ul>
-
-			<!-- Right navbar links -->
-
 		</nav>
-		<!-- /.navbar -->
-
-		<!-- Main Sidebar Container -->
-
-
-		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<div class="content-header">
@@ -122,6 +108,7 @@
 								</thead>
 
 								<tbody>
+
 									<c:forEach items="${listProduct}" var="lsproduct">
 										<tr>
 											<td>${lsproduct.id}</td>
@@ -161,8 +148,6 @@
 									<li><a href="/Admin/QLSanPham?page=3">3</a></li>
 									<li><a href="/Admin/QLSanPham?page=4">4</a></li>
 									<li><a href="/Admin/QLSanPham?page=5">5</a></li>
-									<li class="PagedList-skipToNext"><a
-										href="/Admin/QLSanPham?page=2" rel="next">»</a></li>
 								</ul>
 							</div>
 						</div>
@@ -173,16 +158,6 @@
 
 			<!-- /.content -->
 		</div>
-		<!-- /.content-wrapper -->
-		<footer class="main-footer">
-			<strong>Copyright &copy; 2022 <a href="https://adminlte.io">AdminLTE.io</a>.
-			</strong> All rights reserved.
-			<div class="float-right d-none d-sm-inline-block">
-				<b>Version</b> 3.2.0
-			</div>
-		</footer>
-
-		<!-- Control Sidebar -->
 		<aside class="control-sidebar control-sidebar-dark">
 			<!-- Control sidebar content goes here -->
 		</aside>
@@ -217,20 +192,25 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label><fmt:message key="body.idpro"></fmt:message></label> <input
+							<label><fmt:message key="body.namepro"></fmt:message></label> <input
 								name="name" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label><fmt:message key="body.namepro"></fmt:message></label> <input
+							<label><fmt:message key="body.imgpro"></fmt:message></label> <input
 								name="image" type="text" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label><fmt:message key="body.imgpro"></fmt:message></label> <input
-								name="price" type="text" class="form-control" required>
+							<label><fmt:message key="body.sellpro"></fmt:message></label> <input
+								name="price" type="number" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label><fmt:message key="body.sellpro"></fmt:message></label> <input
-								name="sellprice" type="text" class="form-control" required>
+							<label><fmt:message key="body.sellpripro"></fmt:message></label>
+							<input name="percent" type="number" value="0"
+								class="form-control">
+						</div>
+						<div class="form-group">
+							<label></label> <input name="sellprice" type="hidden" value="0"
+								class="form-control">
 						</div>
 						<div class="form-group">
 							<label><fmt:message key="body.titlepro"></fmt:message></label>
@@ -241,8 +221,9 @@
 							<textarea name="description" class="form-control" required></textarea>
 						</div>
 						<div class="form-group">
-							<label><fmt:message key="body.cate"></fmt:message></label> <select name="category"
-								class="form-select" aria-label="Default select example">
+							<label><fmt:message key="body.cate"></fmt:message></label> <select
+								name="category" class="form-select"
+								aria-label="Default select example">
 								<c:forEach items="${listCategory}" var="lscategory">
 									<option value="${lscategory.cid}">${lscategory.cname}</option>
 								</c:forEach>
@@ -253,7 +234,8 @@
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal"
 							value="Cancel"> <input type="submit"
-							class="btn btn-success" value="Add">
+							class="btn btn-success"
+							value="<fmt:message key="body.addp"></fmt:message>">
 					</div>
 				</form>
 			</div>
