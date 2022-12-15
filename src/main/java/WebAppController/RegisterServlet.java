@@ -41,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
 
 				if (usercheck == null) {
 					dao.registerUser(username, pass, email, number);
-					resp.sendRedirect("login.jsp");
+					resp.sendRedirect("regisSuccess.jsp");
 				} else {
 					req.setAttribute("usname", username);
 					req.setAttribute("pas", pass);

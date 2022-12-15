@@ -23,8 +23,9 @@ public class SearchServlet extends HttpServlet {
 		try {
 			String text = req.getParameter("txtsearch");
 			DAO dao = new DAO();
-
+			//Tìm kiếm theo từ khóa
 			List<Product> listSearch = dao.getAllProductSearch(text);
+			//hiển thị lại thông tin sản phẩm
 			List<Product> listProductdesc = dao.getAllProductdesc();
 			List<Category> listCategory = dao.getAllCategory();
 			req.setAttribute("listProduct", listSearch);

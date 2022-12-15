@@ -1,36 +1,34 @@
 package WebAppController;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import WebAppData.DAO;
-import WebAppModel.User;
 
-@WebServlet("/registerproduct")
-public class RegisterProductServlet extends HttpServlet {
+@WebServlet("/comment")
+public class CommentServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		try {
-			String regis = req.getParameter("regis");
-			String name = req.getParameter("name");
-			String sdt = req.getParameter("sdt");
-			String address = req.getParameter("address");
-			String email = req.getParameter("email");
+			String nameuser = req.getParameter("nameuser");
+			String content = req.getParameter("content");
+			String idpro = req.getParameter("idpro");
 			DAO dao = new DAO();
-			HttpSession ss = req.getSession();
-			User user = (User) ss.getAttribute("sessio");
-			int iduser = user.getIduser();
-			dao.registerProduct(regis, iduser);
-			dao.registerUserShop(name, sdt, address, email, iduser);
-			resp.sendRedirect("regisProductSuccess.jsp");
+			 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+			   LocalDateTime now = LocalDateTime.now();  
+			   String datetime = String.valueOf(dtf.format(now));
+			dao.commentUser(nameuser, content,datetime, idpro);
+			req.setAttribute("idp", idpro);
+			resp.sendRedirect("detailServlet?fromitem=" + idpro);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

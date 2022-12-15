@@ -15,6 +15,7 @@ import WebAppData.DAO;
 import WebAppModel.Category;
 import WebAppModel.Product;
 import WebAppModel.User;
+import WebAppModel.UserShop;
 
 @WebServlet("/manage")
 public class ManageServlet extends HttpServlet {
@@ -37,7 +38,8 @@ public class ManageServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 	}
 }

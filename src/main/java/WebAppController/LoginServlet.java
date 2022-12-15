@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				HttpSession ss = req.getSession(true);
 				ss.setAttribute("sessio", user);
-				ss.setMaxInactiveInterval(2000);
+				ss.setMaxInactiveInterval(3000);
 				resp.sendRedirect("home");
 			}
 		} catch (ClassNotFoundException | SQLException e) {

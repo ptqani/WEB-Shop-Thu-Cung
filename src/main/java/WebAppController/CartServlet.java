@@ -1,6 +1,5 @@
 package WebAppController;
 
-
 import java.io.*;
 import java.sql.SQLException;
 
@@ -20,28 +19,29 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        
-        ServletContext sc = getServletContext();
-        
-        // get current action
+            
+        // gán action = cart nếu rỗng
         String action = request.getParameter("action");
         if (action == null) {
-            action = "cart";  // default action
+            action = "cart";  
         }
 
-        // perform action and set URL to appropriate page
-        String url = "/index.jsp";
+        // thực hiện hành động và đặt URL thành trang thích hợp
+        String url = "/home.jsp";
         if (action.equals("shop")) {            
-            url = "/index.jsp";    // the "index" page
+            url = "/home.jsp";    // trang chủ
         } 
         else if (action.equals("cart")) {
             String productCode = request.getParameter("productCode");
             String quantityString = request.getParameter("quantity");
-
+// lấy cart từ ss ss
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
             if (cart == null) {
                 cart = new Cart();
+            }else {
+            	 LineItem lineItem = new LineItem();
+            	 lineItem.setQuantity(1 +lineItem.getQuantity() );
             }
 
             //if the user enters a negative or invalid quantity,
@@ -55,13 +55,12 @@ public class CartServlet extends HttpServlet {
             } catch (NumberFormatException nfe) {
                 quantity = 1;
             }
-
-       DAO dao = new DAO();
+         DAO dao = new DAO();
             Product product;
 			try {
-				product = dao.getProductID(action);
-				 request.setAttribute("productDetail", product);
-		            LineItem lineItem = new LineItem();
+				//lấy sản phẩm theo id
+				product = dao.getProductID(productCode);
+				  LineItem lineItem = new LineItem();
 		            lineItem.setProduct(product);
 		            lineItem.setQuantity(quantity);
 		            if (quantity > 0) {
@@ -69,20 +68,19 @@ public class CartServlet extends HttpServlet {
 		            } else if (quantity == 0) {
 		                cart.removeItem(lineItem);
 		            }
+		            
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-           
-
             session.setAttribute("cart", cart);
-            url = "/cart.jsp";
+            url = "cart.jsp";
         }
         else if (action.equals("checkout")) {
-            url = "/checkout.jsp";
+            url = "checkout.jsp";
         }
 
-        sc.getRequestDispatcher(url)
+        request.getRequestDispatcher(url)
                 .forward(request, response);
     }
     
