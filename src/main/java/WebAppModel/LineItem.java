@@ -1,8 +1,8 @@
 package WebAppModel;
 
-
 import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class LineItem implements Serializable {
 
@@ -33,7 +33,7 @@ public class LineItem implements Serializable {
     }
 
     public String getTotalCurrencyFormat() {
-        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.JAPAN);
         return currency.format(this.getTotal());
     }
 }
