@@ -31,7 +31,18 @@ public class Cart implements Serializable {
         }
         items.add(item);
     }
-
+    public void Clear(LineItem item) {
+        int id = item.getProduct().getId();
+        int quantity = item.getQuantity();
+        for (int i = 0; i < items.size(); i++) {
+            LineItem lineItem = items.get(i);
+            if (lineItem.getProduct().getId()== id) {
+                lineItem.setQuantity(quantity);
+                return;
+            }
+        }
+        items.clear();
+    }
     public void removeItem(LineItem item) {
         int id = item.getProduct().getId();
         for (int i = 0; i < items.size(); i++) {

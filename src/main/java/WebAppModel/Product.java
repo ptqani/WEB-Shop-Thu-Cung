@@ -130,7 +130,7 @@ public class Product implements Serializable {
 	}
 
 	public String getPriceCurrencyFormat() {
-		NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.JAPAN);
+		NumberFormat currency = NumberFormat.getCurrencyInstance();
 		return currency.format(price);
 	}
 

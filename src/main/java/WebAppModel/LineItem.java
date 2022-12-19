@@ -33,7 +33,7 @@ public class LineItem implements Serializable {
     }
 
     public String getTotalCurrencyFormat() {
-        NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.JAPAN);
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
         return currency.format(this.getTotal());
     }
 }
