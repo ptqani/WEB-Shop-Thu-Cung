@@ -443,13 +443,13 @@ public class DAO {
 	public List<Product> getProductOffSet(int index) throws ClassNotFoundException, SQLException {
 		List<Product> list = new ArrayList<>();
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		String select = "SELECT * FROM product LIMIT 24 OFFSET ?;";
+		String select = "SELECT * FROM product LIMIT 20 OFFSET ?;";
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webthucung", "root",
 				"123456");
 
 				// Tạo câu lệnh sử dụng đối tượng kết nối
 				PreparedStatement preparedStatement = connection.prepareStatement(select)) {
-			preparedStatement.setInt(1, (index - 1) * 24);
+			preparedStatement.setInt(1, (index - 1) * 20);
 			// thực hiện chọn truy vấn
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
