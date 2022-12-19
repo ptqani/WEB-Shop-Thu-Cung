@@ -143,11 +143,7 @@
 						<div class="MenuTrang">
 							<div class="pagination-container">
 								<ul class="pagination">
-									<li class="active"><a>1</a></li>
-									<li><a href="/Admin/QLSanPham?page=2">2</a></li>
-									<li><a href="/Admin/QLSanPham?page=3">3</a></li>
-									<li><a href="/Admin/QLSanPham?page=4">4</a></li>
-									<li><a href="/Admin/QLSanPham?page=5">5</a></li>
+									<li><a href="#">1</a></li>
 								</ul>
 							</div>
 						</div>

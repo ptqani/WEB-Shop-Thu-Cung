@@ -99,8 +99,8 @@
 				</div>
 
 				<div>
-<!-- hiển thị tổng số lượng sản phẩm trong giỏ -->>
-					<a href="cart.jsp" class="navbar__shoppingCart"> <img
+					<!-- hiển thị tổng số lượng sản phẩm trong giỏ -->
+					 <a href="cart.jsp" class="navbar__shoppingCart"> <img
 						src="./img/shopping-cart.svg" style="width: 24px;" alt=""> <c:set
 							var="count" value="${0}" /> <c:forEach items="${cart.items}"
 							var="item">
@@ -165,10 +165,23 @@
 									value="<fmt:message key="body.delete"></fmt:message>"
 									class="btn btn-primary">
 							</form>
+							<c:set var="clear" value="${item.product.id}"></c:set>
 						</td>
-					</tr>
 				</c:forEach>
-
+				<c:if test="${clear != null}">
+				<tr>
+					<td>
+						<form action="cart" method="post">
+							<input type="hidden" name="productCode"
+								value="${clear}"> <input
+								type="hidden" name="quantity" value="-100"><input
+								type="submit" value="<fmt:message key="body.deleteall"></fmt:message>" class="btn btn-primary">
+						</form>
+					</td>
+				</tr>
+				</c:if>
+				<c:if test="${clear == null}">
+				</c:if>
 				<tr
 					style="font-weight: bold; color: unset; background-color: unset;">
 					<td style="text-align: left;" colspan="5"><input
@@ -176,7 +189,7 @@
 						for="selectall"><fmt:message key="body.selecallcart"></fmt:message></label></td>
 
 				</tr>
-<!-- Tổng giá của tất cả sản phẩm -->>
+				<!-- Tổng giá của tất cả sản phẩm -->
 				<tr style="font-weight: bold; text-align: right; color: crimson;">
 					<c:set var="sumprice" value="${0}" />
 					<c:forEach items="${cart.items}" var="item">
@@ -185,24 +198,23 @@
 					</c:forEach>
 					<td colspan="10"><fmt:message key="body.sumpri"></fmt:message>
 						${sumprice}</td>
+
 				</tr>
 
 				<c:if test="${sessionScope.sessio != null}">
 					<tr
 						style="font-weight: bold; text-align: right; color: unset; background-color: unset;">
 						<td colspan="8">
-
-
 							<form action="cart" method="post">
 								<c:forEach items="${cart.items}" var="item">
 									<c:if test="${item =! null}">
-										<input type="hidden" name="action" value="checkout">
-										<input class="btn btn-primary" type="submit"
-											value="<fmt:message key="body.checkoder"></fmt:message>">
+										<input type="hidden" name="action" value="checkout">		
 									</c:if>
 								</c:forEach>
+								<input class="btn btn-primary" type="submit"
+									value="<fmt:message key="body.checkoder"></fmt:message>">
 								<c:forEach items="${cart.items}" var="item">
-									<c:if test="${item == null}">	
+									<c:if test="${item == null}">
 									</c:if>
 								</c:forEach>
 							</form>

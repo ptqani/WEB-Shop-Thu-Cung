@@ -243,7 +243,7 @@
 												<div class="product__pride-oldPride">
 													<span class="Price"> <bdi>
 														${lsproductdesc.price} <span class="currencySymbol"><fmt:message
-																key="money=đ"></fmt:message></span> </bdi>
+																key="money"></fmt:message></span> </bdi>
 													</span>
 												</div>
 
@@ -336,7 +336,6 @@
 								</c:forEach>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>

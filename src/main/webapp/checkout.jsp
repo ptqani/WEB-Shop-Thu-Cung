@@ -148,7 +148,7 @@
 							value="${sumprice +item.quantity * item.product.price}" />
 					</c:forEach>
 
-					<td colspan="10">Tổng tiền ${sumprice}</td>
+					<td colspan="10"><fmt:message key="body.sumpri"></fmt:message>${sumprice}</td>
 
 
 				</tr>
@@ -171,6 +171,7 @@
 				<input type="hidden" name="idpro" value="${item.product.id}">
 					<input type="hidden" name="namep" value="${item.product.name}">
 				<input type="hidden" name="quantiitem" value="${item.quantity}">
+					
 			</c:forEach>
 
 			<input type="hidden" name="count" value="${count}"> <input
@@ -215,7 +216,7 @@
 
 							<div class="cod">
 								<input type="hidden" name="action" value="checkout">
-								<fmt:message key="body.tt"></fmt:message>
+								<fmt:message key="body.tt"></fmt:message>	
 								<input type="submit"
 									value="<fmt:message key="body.applc"></fmt:message>"
 									class="btn btn-success" />

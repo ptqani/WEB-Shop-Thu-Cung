@@ -294,5 +294,44 @@
 	</script>
 
 	<script src="./script/script.js"></script>
+	<div id="registerPro" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="registerproduct" method="post">
+					<div class="modal-header">
+						<h4 class="modal-title">
+							<fmt:message key="menu.register"></fmt:message>
+						</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label><fmt:message key="body.nameshop"></fmt:message></label> <input
+								name="name" type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label><fmt:message key="body.sdtshop"></fmt:message></label> <input
+								name="sdt" type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label><fmt:message key="body.addrestshop"></fmt:message></label>
+							<input name="address" type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label><fmt:message key="body.emailshop"></fmt:message></label> <input
+								name="email" type="text" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" data-dismiss="modal" value="Cancel">
+						<button name="regis" value="1">
+							<fmt:message key="body.regisshop"></fmt:message>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
