@@ -18,6 +18,7 @@ public class RegisterProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
+		// đăng kí bán hàng
 		try {
 			String regis = req.getParameter("regis");
 			String name = req.getParameter("name");

@@ -21,6 +21,7 @@ import WebAppModel.UserShop;
 public class ManageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// trang quản lí sản phẩm
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		try {

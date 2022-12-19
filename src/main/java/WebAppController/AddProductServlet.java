@@ -1,7 +1,6 @@
 package WebAppController;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import WebAppData.DAO;
-import WebAppModel.LineItem;
 import WebAppModel.User;
-import WebAppModel.UserShop;
 
 @WebServlet("/addproduct")
 public class AddProductServlet extends HttpServlet {
@@ -22,13 +19,14 @@ public class AddProductServlet extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		try {
-			
+
 			String name = req.getParameter("name");
 			String image = req.getParameter("image");
-			double price  = Double.parseDouble(req.getParameter("price"));
+			double price = Double.parseDouble(req.getParameter("price"));
 			double percent = Double.parseDouble(req.getParameter("percent"));
-			double sellprice = Double.parseDouble(req.getParameter("sellprice")); 
-			double percentprice = (price * percent)/100;
+			double sellprice = Double.parseDouble(req.getParameter("sellprice"));
+			// tính goảm giá theo %
+			double percentprice = (price * percent) / 100;
 			sellprice = price - percentprice;
 			String title = req.getParameter("title");
 			String description = req.getParameter("description");
@@ -39,12 +37,11 @@ public class AddProductServlet extends HttpServlet {
 			DAO dao = new DAO();
 			// thêm add product
 			dao.addProduct(name, image, price, sellprice, title, description, category, idpro);
-			
-	
+
 			resp.sendRedirect("manage");
-		} catch (ClassNotFoundException e ) {
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 	}
 }

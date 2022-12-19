@@ -21,6 +21,7 @@ public class EditProduct extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		try {
+			// chỉnh sửa sản phẩm
 			String editpro = req.getParameter("editpro");
 			DAO dao = new DAO();
 			Product product = dao.getProductID(editpro);

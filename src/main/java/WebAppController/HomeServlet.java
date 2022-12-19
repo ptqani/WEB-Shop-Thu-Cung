@@ -36,8 +36,8 @@ public class HomeServlet extends HttpServlet {
 			// hiển thị ra danh mục sản phẩm
 			List<Category> listCategory = dao.getAllCategory();
 			int count = dao.countProduct(); // Đếm số lượng sp có trong csdl
-			int endPage = count / 24; // hiện thị lên 1 trang tối đa 24 sản phẩm
-			if (count % 24 != 0) { // nếu mà dư sản phẩm thì tăng biến lên đến khi nào không còn dư
+			int endPage = count / 20; // hiện thị lên 1 trang tối đa 20 sản phẩm
+			if (count % 20 != 0) { // nếu mà dư sản phẩm thì tăng biến lên đến khi nào không còn dư
 				endPage++;
 			}
 			req.setAttribute("pageid", page);

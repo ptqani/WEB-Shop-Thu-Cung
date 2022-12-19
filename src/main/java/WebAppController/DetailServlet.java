@@ -24,6 +24,7 @@ public class DetailServlet extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		try {
+			// hiển thị thông tin sản phẩm
 			String frormitem = req.getParameter("fromitem");
 			String useridshop = req.getParameter("useridshop");
 			String idproductshop = req.getParameter("idproductshop");

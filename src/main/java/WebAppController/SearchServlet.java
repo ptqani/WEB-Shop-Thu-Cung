@@ -18,6 +18,7 @@ import WebAppModel.Product;
 public class SearchServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// tìm kiếm sp theo từ khóa
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		try {

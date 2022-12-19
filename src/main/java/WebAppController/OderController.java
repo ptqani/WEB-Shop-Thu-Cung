@@ -22,6 +22,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	resp.setContentType("text/html;charset=UTF-8");
 	DAO dao = new DAO();
 	req.setCharacterEncoding("UTF-8");
+	// lưu thông tin hóa đơn
 	try {
 		List<Billproduct> bill = dao.getAllBill();
 		HttpSession ss = req.getSession();

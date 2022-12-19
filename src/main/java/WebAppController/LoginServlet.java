@@ -20,9 +20,10 @@ import WebAppModel.User;
 public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html;charset=UTF-8");
+		req.setCharacterEncoding("UTF-8");
 		try {
-			resp.setContentType("text/html;charset=UTF-8");
-			req.setCharacterEncoding("UTF-8");
+			// form đăng nhập
 			HashMap<String, String> mess = new HashMap<String, String>();
 			mess.put("error", "Sai thông tin tài khoản hoặc mật khẩu");
 			String username = req.getParameter("usernamet");

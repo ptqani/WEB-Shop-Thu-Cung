@@ -33,7 +33,7 @@ public class CartServlet extends HttpServlet {
         } 
         else if (action.equals("cart")) {
             String productCode = request.getParameter("productCode");
-            String quantityString = request.getParameter("quantity");
+            String quantityString = request.getParameter("quantity");     
 // lấy cart từ ss ss
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
@@ -45,13 +45,10 @@ public class CartServlet extends HttpServlet {
             }
 
             //if the user enters a negative or invalid quantity,
-            //the quantity is automatically reset to 1.
+            
             int quantity;
             try {
                 quantity = Integer.parseInt(quantityString);
-                if (quantity < 0) {
-                    quantity = 1;
-                }
             } catch (NumberFormatException nfe) {
                 quantity = 1;
             }
@@ -66,7 +63,10 @@ public class CartServlet extends HttpServlet {
 		            if (quantity > 0) {
 		                cart.addItem(lineItem);
 		            } else if (quantity == 0) {
-		                cart.removeItem(lineItem);
+		                cart.removeItem(lineItem);         
+		            } else if (quantity == -100){
+		            	  cart.removeItem(lineItem);     
+		            	cart.Clear(lineItem);
 		            }
 		            
 			} catch (ClassNotFoundException | SQLException e) {

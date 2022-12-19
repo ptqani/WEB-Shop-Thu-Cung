@@ -16,6 +16,7 @@ import WebAppModel.User;
 public class SaveEditProductServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	//	lưu lại thông tin sản phẩm
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		try {

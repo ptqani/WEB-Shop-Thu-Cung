@@ -20,6 +20,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	resp.setContentType("text/html;charset=UTF-8");
 	req.setCharacterEncoding("UTF-8");
 	try {
+		//hienr thị danh mục của sản phẩm
 	String cateID = req.getParameter("fromid");
 	DAO dao = new DAO();
 		List<Product> listproduct = dao.getAllProductCategory(cateID);

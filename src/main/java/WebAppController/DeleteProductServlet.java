@@ -16,6 +16,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	resp.setContentType("text/html;charset=UTF-8");
 	req.setCharacterEncoding("UTF-8");
 	try {
+		// xóa sản phẩm
 		String frormitem = req.getParameter("fromitem");
 		DAO dao = new DAO();
 		dao.deleteProduct(frormitem);

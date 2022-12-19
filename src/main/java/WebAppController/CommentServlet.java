@@ -19,6 +19,7 @@ public class CommentServlet extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		try {
+			// lưu lại bình luận và hiển thị bình luận lên trang detail
 			String nameuser = req.getParameter("nameuser");
 			String content = req.getParameter("content");
 			String idpro = req.getParameter("idpro");

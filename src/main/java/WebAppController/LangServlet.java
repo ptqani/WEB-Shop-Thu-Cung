@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 @WebFilter(filterName = "SessionLocaleFilter", urlPatterns = {"/*"})
 public class LangServlet implements Filter {
-
+// lưu ngôn ngữ vào ss
 @Override
 public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 	      throws IOException, ServletException {
