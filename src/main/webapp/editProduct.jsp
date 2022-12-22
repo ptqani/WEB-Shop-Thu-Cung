@@ -78,7 +78,7 @@
 		<!-- /.navbar -->
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form action="editsave" method="post">
+				<form action="editsave" method="post" enctype="multipart/form-data">
 					<div class="modal-header">
 						<h4 class="modal-title">
 							<fmt:message key="menu.admin.editpro"></fmt:message>
@@ -99,7 +99,7 @@
 						</div>
 						<div class="form-group">
 							<label><fmt:message key="body.imgpro"></fmt:message></label> <input
-								name="image" type="text" value="${productDetail.image}"
+								name="image" type="file"
 								class="form-control" required>
 						</div>
 						<div class="form-group">

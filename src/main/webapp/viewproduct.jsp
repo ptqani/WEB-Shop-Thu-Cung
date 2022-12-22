@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="i18n.messages" />
+<%@ page errorPage="errorhome.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +35,7 @@
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 	<div class="wrapper">
 
@@ -178,7 +180,7 @@
 	<div id="addEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form action="addproduct" method="post">
+				<form action="addproduct" method="post" enctype="multipart/form-data">
 					<div class="modal-header">
 						<h4 class="modal-title">
 							<fmt:message key="body.addpro"></fmt:message>
@@ -193,7 +195,7 @@
 						</div>
 						<div class="form-group">
 							<label><fmt:message key="body.imgpro"></fmt:message></label> <input
-								name="image" type="text" class="form-control" required>
+								name="image" type="file" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label><fmt:message key="body.sellpro"></fmt:message></label> <input
@@ -237,5 +239,6 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
