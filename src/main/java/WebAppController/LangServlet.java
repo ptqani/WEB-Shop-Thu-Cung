@@ -19,6 +19,7 @@ public void doFilter(ServletRequest request, ServletResponse response, FilterCha
 	response.setContentType("text/html;charset=UTF-8");
 	request.setCharacterEncoding("UTF-8");
 	        HttpServletRequest req = (HttpServletRequest) request;
+	        // nếu có thì đã cập nhật ss đã chọn
 	        if (req.getParameter("sessionLocale") != null) {
 	            req.getSession().setAttribute("lang", req.getParameter("sessionLocale"));
 	        }

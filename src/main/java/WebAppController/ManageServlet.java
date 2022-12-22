@@ -33,6 +33,7 @@ public class ManageServlet extends HttpServlet {
 			List<Category> listCategory = dao.getAllCategory();
 			req.setAttribute("listCategory", listCategory);
 			req.setAttribute("listProduct", list);
+			req.setAttribute("iduser", iduser);
 			req.getRequestDispatcher("viewproduct.jsp").forward(req, resp);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
